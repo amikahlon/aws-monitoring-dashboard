@@ -1,5 +1,20 @@
 services:
-  frontend:
-    ...
   backend:
-    ...
+    build:
+      context: ./server
+    container_name: aws-monitoring-backend
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./server/.env
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./client
+    container_name: aws-monitoring-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
