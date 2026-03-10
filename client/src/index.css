@@ -80,3 +80,53 @@ select {
   color: #dc2626;
   font-weight: 600;
 }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.metric-card__title {
+  display: block;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+
+.metric-card__value {
+  display: block;
+  font-size: 1.8rem;
+  color: #111827;
+  margin-bottom: 6px;
+}
+
+.metric-card__subtitle {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
