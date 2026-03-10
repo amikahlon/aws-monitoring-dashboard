@@ -12,6 +12,8 @@ export default function DashboardPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadDashboardData = async () => {
       try {
         const [healthData, metricsData] = await Promise.all([
@@ -19,16 +21,54 @@ export default function DashboardPage() {
           api.getMetrics()
         ]);
 
+        if (!isMounted) {
+          return;
+        }
+
         setHealth(healthData);
         setMetrics(metricsData);
+        setError("");
       } catch (err) {
+        if (!isMounted) {
+          return;
+        }
+
         setError(err instanceof Error ? err.message : "Unknown error");
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    const loadMetricsOnly = async () => {
+      try {
+        const metricsData = await api.getMetrics();
+
+        if (!isMounted) {
+          return;
+        }
+
+        setMetrics(metricsData);
+      } catch (err) {
+        if (!isMounted) {
+          return;
+        }
+
+        setError(err instanceof Error ? err.message : "Unknown error");
       }
     };
 
     loadDashboardData();
+
+    const intervalId = window.setInterval(() => {
+      loadMetricsOnly();
+    }, 5000);
+
+    return () => {
+      isMounted = false;
+      window.clearInterval(intervalId);
+    };
   }, []);
 
   return (
