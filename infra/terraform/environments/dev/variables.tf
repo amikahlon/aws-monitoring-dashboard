@@ -1,6 +1,6 @@
 variable "aws_region" {
   type    = string
-  default = "eu-central-1"
+  default = "eu-north-1"
 }
 
 variable "project_name" {
@@ -11,4 +11,9 @@ variable "project_name" {
 variable "environment" {
   type    = string
   default = "dev"
+}
+
+variable "availability_zone" {
+  type    = string
+  default = "eu-central-1a"
 }
