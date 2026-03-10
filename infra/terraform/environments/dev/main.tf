@@ -51,3 +51,16 @@ module "ecs_ec2" {
   vpc_id    = module.network.vpc_id
   subnet_id = module.network.public_subnet_id
 }
+
+module "ecs_service" {
+  source = "../../modules/ecs-service"
+
+  project_name = var.project_name
+  environment  = var.environment
+  cluster_id   = module.ecs_cluster.cluster_id
+
+  backend_image  = "${module.backend_ecr.repository_url}:latest"
+  frontend_image = "${module.frontend_ecr.repository_url}:latest"
+
+  depends_on = [module.ecs_ec2]
+}
