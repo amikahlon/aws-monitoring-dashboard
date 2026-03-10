@@ -1,7 +1,7 @@
 import type { HealthResponse } from "../types/health";
 import type { MetricsResponse } from "../types/metrics";
 
-const API_BASE_URL = "http://localhost:4000/api";
+const API_BASE_URL = "/api";
 
 export const api = {
   async getHealth(): Promise<HealthResponse> {
