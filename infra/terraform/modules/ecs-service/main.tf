@@ -19,6 +19,18 @@ resource "aws_ecs_task_definition" "app" {
         {
           name  = "PORT"
           value = "4000"
+        },
+        {
+          name  = "AWS_REGION"
+          value = "eu-central-1"
+        },
+        {
+          name  = "ECS_CLUSTER_NAME"
+          value = "aws-monitoring-dashboard-dev-ecs-cluster"
+        },
+        {
+          name  = "ECS_SERVICE_NAME"
+          value = "aws-monitoring-dashboard-dev-service"
         }
       ]
 
